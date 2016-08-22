@@ -277,8 +277,10 @@ multitask :push do
     else
       puts "## Using GH_TOKEN"
       new_origin = `git remote -v | grep origin | grep push | awk '{print $2}'`.chomp.sub('//', "//#{ENV['GH_TOKEN']}@")
-      system "git remote add origin-auth #{new_origin} > /dev/null 2>&1"
-      system "git push --quiet origin-auth #{deploy_branch} > /dev/null 2>&1"
+      system "git remote add origin-auth #{new_origin}"
+      system "git push origin-auth #{deploy_branch}"
+      # system "git remote add origin-auth #{new_origin} > /dev/null 2>&1"
+      # system "git push --quiet origin-auth #{deploy_branch} > /dev/null 2>&1"
     end
 
     puts "\n## Github Pages deploy complete"
